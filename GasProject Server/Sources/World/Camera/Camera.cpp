@@ -98,7 +98,7 @@ void Camera::UpdateView(std::chrono::microseconds timeElapsed) {
 					case Global::DiffType::MOVE: {
 						MoveDiff *moveDiff = dynamic_cast<MoveDiff *>(diff.get());
 						if (visibleObjects.find(moveDiff->id) == visibleObjects.end()) {
-							apos to = moveDiff->lastblock->GetPos() + rpos(DirectionToVect(moveDiff->direction),0);
+							apos to = moveDiff->lastblock->GetPos() + DirectionToVect(moveDiff->direction);
 							command->diffs.push_back(std::make_shared<AddDiff>(GGame->GetWorld()->GetObject(moveDiff->id), to.x, to.y, to.z));
 							visibleObjects.insert(moveDiff->id);
 							break;

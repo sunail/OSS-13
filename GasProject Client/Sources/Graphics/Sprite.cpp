@@ -66,7 +66,7 @@ void Sprite::updateSpriteVariables() {
         return;
 
     int realState = firstFrame;
-    if (directed && direction != uf::Direction::NONE) realState += int(direction) * frames;
+    if (directed && direction != uf::Direction::NONE) realState += (uf::log2(direction)-1) * frames;
     if (frames > 1) realState += curFrame;
 
     rect.left = realState % texture->GetNumOfTiles().x * texture->GetSizeOfTile();

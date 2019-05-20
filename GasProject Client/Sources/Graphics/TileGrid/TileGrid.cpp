@@ -198,7 +198,7 @@ void TileGrid::Update(sf::Time timeElapsed) {
     if (actionSendPause == sf::Time::Zero) {
 		if (stun == sf::Time::Zero && moveCommand) {
 			auto *p = new client::MoveCommand();
-			p->direction = uf::VectToDirection(moveCommand);
+			p->direction = uf::VectToDirection(rpos(moveCommand, 0));
 			Connection::commandQueue.Push(p);
 
 			if (controllable) {
@@ -221,7 +221,7 @@ void TileGrid::Update(sf::Time timeElapsed) {
 				}
 
 				controllable->SetMoveIntent(moveIntent, false);
-				controllable->SetDirection(uf::VectToDirection(moveIntent));
+				controllable->SetDirection(uf::VectToDirection(rpos(moveIntent, 0)));
 			}
 			else {
 				throw std::exception(); // Controllable is null!?
@@ -338,7 +338,7 @@ void TileGrid::SetMoveIntentObject(uint id, uf::Direction direction) {
     auto iter = objects.find(id);
     if (objects.find(id) != objects.end()) {
         Object *obj = iter->second.get();
-        uf::vec2i dir = uf::DirectionToVect(direction);
+        uf::vec2i dir = uf::DirectionToVect(direction).xy();
         obj->SetMoveIntent(dir, true);
         return;
     }
@@ -349,7 +349,7 @@ void TileGrid::MoveObject(uint id, uf::Direction direction, float speed) {
     auto iter = objects.find(id);
     if (objects.find(id) != objects.end()) {
         Object *obj = iter->second.get();
-        uf::vec2i dir = uf::DirectionToVect(direction);
+        uf::vec2i dir = uf::DirectionToVect(direction).xy();
 
         Tile *lastTile = obj->GetTile();
         if (!lastTile) {

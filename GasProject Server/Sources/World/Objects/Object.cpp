@@ -77,7 +77,7 @@ void Object::Move(uf::vec2i order) {
 		return;
 
 	// Form the intent based on the order
-	SetDirection(uf::VectToDirection(order));
+	SetDirection(uf::VectToDirection(rpos(order, 0)));
 
 	Tile *tile = GetTile();
 	if (tile) {
@@ -246,7 +246,7 @@ void Object::SetInvisibility(uint invisibility) { this->invisibility = invisibil
 
 void Object::SetMoveIntent(uf::vec2i moveIntent) {
     if (tile) {
-        tile->AddDiff(new MoveIntentDiff(this, uf::VectToDirection(moveIntent)));
+        tile->AddDiff(new MoveIntentDiff(this, uf::VectToDirection(rpos(moveIntent, 0))));
     }
     if (moveIntent.x) this->moveIntent.x = moveIntent.x;
     if (moveIntent.y) this->moveIntent.y = moveIntent.y;
@@ -273,8 +273,9 @@ float Object::GetSpeed() const {
 }
 
 void Object::SetDirection(uf::Direction direction) {
-    if (direction > uf::Direction::EAST)
-        direction = uf::Direction(char(direction) % 4);
+    direction = bool(direction & (uf::Direction::EAST|uf::Direction::WEST)) ?
+		direction & (uf::Direction::EAST|uf::Direction::WEST) :
+		direction & (uf::Direction::SOUTH|uf::Direction::NORTH);
     this->direction = direction;
 	if (tile)
 		tile->AddDiff(new ChangeDirectionDiff(this, direction));

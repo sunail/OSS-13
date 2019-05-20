@@ -90,7 +90,9 @@ void Object::SetDirection(const uf::Direction newdirection) {
 		return;
 
     // cut the diagonal directions
-	direction = uf::Direction(char(newdirection) % 4);
+	direction = bool(newdirection & (uf::Direction::EAST|uf::Direction::WEST)) ?
+		newdirection & (uf::Direction::EAST|uf::Direction::WEST) :
+		newdirection & (uf::Direction::SOUTH|uf::Direction::NORTH);
 	for (auto &sprite : sprites) {
 		if (sprite.IsValid()) sprite.SetDirection(direction);
 	}
@@ -118,7 +120,7 @@ void Object::ResetShiftingState() {
 }
 
 void Object::ReverseShifting(uf::Direction direction) {
-	uf::vec2i directionVect = uf::DirectionToVect(direction);
+	uf::vec2i directionVect = uf::DirectionToVect(direction).xy();
 	if (directionVect.x) moveIntent.x = 0, moveIntentApproved.x = 0;
 	if (directionVect.y) moveIntent.y = 0, moveIntentApproved.y = 0;
 	shift -= directionVect;

@@ -45,7 +45,7 @@ void Player::ChatMessage(std::string &message) {
 }
 
 void Player::Move(uf::Direction direction) {
-	actions.Push(new MovePlayerCommand(uf::DirectionToVect(direction)));
+	actions.Push(new MovePlayerCommand(uf::DirectionToVect(direction).xy()));
 }
 
 void Player::MoveZ(bool up) {
