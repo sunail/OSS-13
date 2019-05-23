@@ -6,6 +6,7 @@
 class Player;
 class Control;
 class World;
+class LuaManager;
 class Chat;
 
 class IGame : public INonCopyable {
@@ -16,6 +17,7 @@ public:
 
 	virtual Control *GetStartControl(Player *) = 0;
 	virtual const uptr<World> &GetWorld() const = 0;
+	virtual LuaManager *GetLua() const = 0;
 	virtual Chat *GetChat() = 0;
 };
 

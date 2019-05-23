@@ -10,6 +10,7 @@
 #include <IGame.h>
 #include <Player.hpp>
 #include <Chat.h>
+#include <Scripts/LuaManager.h>
 
 class World;
 
@@ -23,6 +24,7 @@ public:
 	Control *GetStartControl(Player *);
 
 	const uptr<World> &GetWorld() const { return world; }
+	LuaManager *GetLua() const;
 
 	Chat *GetChat() { return &chat; }
 
@@ -33,6 +35,7 @@ private:
 	bool active;
 	uptr<std::thread> thread;
 	uptr<World> world;
+	uptr<LuaManager> lua;
 
 	std::list<sptr<Player>> players;
 	std::list<sptr<Player>> disconnectedPlayers;

@@ -19,6 +19,7 @@ Game::Game() :
 
 void Game::gameProcess() {
 	world.reset(new World());
+	lua.reset(new LuaManager());
 	world->FillingWorld();
 	sf::Clock clock;
 	while (active) {
@@ -88,6 +89,10 @@ void Game::SendChatMessages() {
 	for (auto &player : players)
 		for (auto &message : messages)
 			player->AddCommandToClient(new SendChatMessageServerCommand(message));
+}
+
+LuaManager *Game::GetLua() const {
+	return lua.get();
 }
 
 Game::~Game() {

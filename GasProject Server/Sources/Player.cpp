@@ -149,7 +149,7 @@ void Player::Update(sf::Time timeElapsed) {
 					if (!control) break;
 					Tile *tile = control->GetOwner()->GetTile();
 					if (tile)
-						GGame->GetWorld()->CreateObject<Wall>(tile);
+						GGame->GetWorld()->CreateObject<LuaObject>(tile, "Wall");
 					break;
 				}
 				case PlayerCommand::Code::GHOST: {
