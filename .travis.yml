@@ -4,6 +4,9 @@ git:
   depth: 10
 
 os: linux
+dist: focal
+python:
+  - "3.9"
 addons:
   apt:
     sources:
