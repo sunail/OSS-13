@@ -3,7 +3,7 @@ set -ev
 
 if [ ! -d /home/travis/SFML/.git ]; then
     cd ~
-    git clone --depth 1 https://github.com/SFML/SFML.git
+    git clone --depth 1 -b 2.5.1 https://github.com/SFML/SFML.git
     cd SFML
     mkdir install
     mkdir build
