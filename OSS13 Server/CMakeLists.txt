@@ -4,7 +4,7 @@ project(OSS13-Server)
 
 include(FindPkgConfig)
 
-pkg_search_module(PYTHON REQUIRED python3)
+pkg_search_module(PYTHON REQUIRED python3-embed)
 
 file(GLOB_RECURSE SOURCE_FILES Sources/*.cpp)
 
